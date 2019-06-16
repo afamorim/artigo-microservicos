@@ -1,0 +1,176 @@
+swagger: "2.0"
+info:
+  description: "Documentação sobre sistema de gestão de ensino, focado em artigo para demonstração de Microserviços. Esta documentação visa apresentar serviços espostos para o microserviço de instituição."
+  version: "1.0.0"
+  title: "Artigo sobre Microserviços"
+  termsOfService: "http://swagger.io/terms/"
+  contact:
+    email: "apiteam@swagger.io"
+  license:
+    name: "Apache 2.0"
+    url: "http://www.apache.org/licenses/LICENSE-2.0.html"
+host: "petstore.swagger.io"
+basePath: "/v2"
+tags:
+- name: "instituicoes"
+  description: "Gestão de Instituições"
+  externalDocs:
+    description: "Mais detalhes"
+    url: "https://devcomdende.blogspot.com/2019/06/desenvolvimento-de-microservicos-parte-1.html"
+- name: "instituicoes"
+  description: "Acesso a gestão das instuições"
+- name: "curso"
+  description: "Operações sobre curso"
+schemes:
+- "https"
+- "http"
+paths:
+  /instuicoes:
+    post:
+      tags:
+      - "instituicoes"
+      summary: "Adicione uma instituição"
+      description: ""
+      operationId: "addInsituicao"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "Objeto Instituicao que será salvo na base de dados."
+        required: true
+        schema:
+          $ref: "#/definitions/Instituicao"
+      responses:
+        405:
+          description: "Invalid input"
+      security:
+      - instituicao_auth:
+        - "write:instituicoes"
+        - "read:instituicoes"
+    put:
+      tags:
+      - "instituicoes"
+      summary: "Altere Insituição já existente"
+      description: ""
+      operationId: "updateInstituicao"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "Objeto Instituicao que será salvo na base de dados."
+        required: true
+        schema:
+          $ref: "#/definitions/Instituicao"
+      responses:
+        400:
+          description: "Código passado é inválido"
+        404:
+          description: "Insituição não localizada"
+        405:
+          description: "Validation exception"
+      security:
+      - instituicao_auth:
+        - "write:instituicoes"
+        - "read:instituicoes"
+  /instituicoes/{codigoInstituicao}:
+    get:
+      tags:
+      - "instituicoes"
+      summary: "Buscar Instituição pelo código"
+      description: "Retornar uma Instituição única"
+      operationId: "findByPrimaryKey"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "codigoInstituicao"
+        in: "path"
+        description: "Código da Instituição a ser retornada."
+        required: true
+        type: "integer"
+        format: "int64"
+      responses:
+        200:
+          description: "Operação finalizada com sucesso"
+          schema:
+            $ref: "#/definitions/Instituicao"
+        400:
+          description: "Código passado é inválido"
+        404:
+          description: "Instituição não localizada"
+      security:
+      - api_key: []
+    delete:
+      tags:
+      - "instituicoes"
+      summary: "Apaga a Instituição"
+      description: ""
+      operationId: "deleteInstituicao"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "api_key"
+        in: "header"
+        required: false
+        type: "string"
+      - name: "codigoInstituicao"
+        in: "path"
+        description: "Instituição para ser apagada"
+        required: true
+        type: "integer"
+        format: "int64"
+      responses:
+        400:
+          description: "O código passado é inválido"
+        404:
+          description: "Instituição não localizada"
+      security:
+      - instituicao_auth:
+        - "write:instituicoes"
+        - "read:instituicoes"
+securityDefinitions:
+  instituicao_auth:
+    type: "oauth2"
+    authorizationUrl: "http://petstore.swagger.io/oauth/dialog"
+    flow: "implicit"
+    scopes:
+      write:instituicoes: "modify insituições in your account"
+      read:instituicoes: "read your instituições"
+  api_key:
+    type: "apiKey"
+    name: "api_key"
+    in: "header"
+definitions:
+  Instituicao:
+    type: "object"
+    required:
+    - "nome"
+    - "endereco"
+    - "telefoneContato"
+    properties:
+      codigo:
+        type: "integer"
+        format: "int64"
+      nome:
+        type: "string"
+        example: "Colégio XPTO"
+    xml:
+      name: "Instituicao"
+  ApiResponse:
+    type: "object"
+    properties:
+      code:
+        type: "integer"
+        format: "int64"
+      type:
+        type: "string"
+      message:
+        type: "string"
+externalDocs:
+  description: "Find out more about Swagger"
+  url: "http://swagger.io"
