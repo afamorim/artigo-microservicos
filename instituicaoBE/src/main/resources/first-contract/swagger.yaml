@@ -21,6 +21,9 @@ tags:
   description: "Acesso a gestão das instuições"
 - name: "curso"
   description: "Operações sobre curso"
+  externalDocs:
+    description: "Mais detalhes"
+    url: "https://devcomdende.blogspot.com/2019/06/desenvolvimento-de-microservicos-parte-1.html"
 schemes:
 - "https"
 - "http"
@@ -133,6 +136,81 @@ paths:
       - instituicao_auth:
         - "write:instituicoes"
         - "read:instituicoes"
+  /cursos:
+    post:
+      tags:
+        - "cursos"
+      summary: "Adicionando um novo curso"
+      description: ""
+      operationId: "addCurso"
+      consumes:
+        - "application/json"
+      produces: 
+        - "application/json"
+      parameters: 
+      - in: "body"
+        name: "body"
+        description: "Objeto curso que será persistido."
+        required: true
+        schema:
+          $ref: "#/definitions/Curso"
+      responses:
+        405:
+          description: "Invalid input"
+      security:
+      - curso_auth:
+        - "write:cursos"
+        - "read:cursos"
+    put:
+      tags:
+      - "cursos"
+      summary: "Altere o Cursos já existente"
+      description: ""
+      operationId: "updateCurso"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "Objeto Curso que será salvo na base de dados."
+        required: true
+        schema:
+          $ref: "#/definitions/Curso"
+      responses:
+        400:
+          description: "Código passado é inválido"
+        404:
+          description: "Curso não localizado"
+        405:
+          description: "Validation exception"
+      security:
+      - curso_auth:
+        - "write:cursos"
+        - "read:cursos"
+  /areas:
+    get:
+      tags:
+      - "area"
+      summary: "Recuperar as áreas cadastradas"
+      description: ""
+      operationId: "findAllArea"
+      produces:
+      - "application/json"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Area"
+        400:
+          description: "Invalid status value"
+      security:
+      - area_auth:
+        - "write:areas"
+        - "read:areas"
 securityDefinitions:
   instituicao_auth:
     type: "oauth2"
@@ -141,6 +219,20 @@ securityDefinitions:
     scopes:
       write:instituicoes: "modify insituições in your account"
       read:instituicoes: "read your instituições"
+  curso_auth:
+    type: "oauth2"
+    authorizationUrl: "http://petstore.swagger.io/oauth/dialog"
+    flow: "implicit"
+    scopes:
+      write:cursos: "modify cursos in your account"
+      read:cursos: "read your cursos"
+  area_auth:
+    type: "oauth2"
+    authorizationUrl: "http://petstore.swagger.io/oauth/dialog"
+    flow: "implicit"
+    scopes:
+      write:areas: "modify areas in your account"
+      read:areas: "read your areas"
   api_key:
     type: "apiKey"
     name: "api_key"
@@ -171,6 +263,34 @@ definitions:
         type: "string"
       message:
         type: "string"
+  Area:
+    type: "object"
+    required:
+    - "nome"
+    properties:
+      codigo:
+        type: "integer"
+        format: "int64"
+      nome:
+        type: "string"
+  Curso:
+    type: "object"
+    required:
+    - "nome"
+    - "codigoInstituicao"
+    - "codigoArea"
+    properties:
+      codigo:
+        type: "integer"
+        format: "int64"
+      nome:
+        type: "string"
+      codigoInstituicao:
+        type: "integer"
+        format: "int64"
+      codigoArea:
+        type: "integer"
+        format: "int64"
 externalDocs:
   description: "Find out more about Swagger"
   url: "http://swagger.io"
