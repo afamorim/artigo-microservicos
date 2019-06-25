@@ -1,9 +1,6 @@
 package br.com.vortice.gestao.instituicaoBE.domain;
 
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.NonNull;
+import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -13,6 +10,7 @@ import javax.validation.constraints.NotNull;
 @Data
 @Builder
 @NoArgsConstructor
+@AllArgsConstructor
 public class Instituicao {
 
     @Id
