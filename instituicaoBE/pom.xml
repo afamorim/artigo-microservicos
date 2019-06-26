@@ -90,6 +90,7 @@
 						<configuration>
 							<inputSpec>${project.basedir}/src/main/resources/first-contract/swagger.yaml</inputSpec>
 							<language>spring</language>
+							<library>springboot</library>
 							<configOptions>
 								<sourceFolder>src/gen/java/main</sourceFolder>
 								<library>spring-boot</library>
@@ -98,6 +99,9 @@
 								<dateLibrary>java8</dateLibrary>
 								<java8>true</java8>
 								<delegatePattern>true</delegatePattern>
+								<invokerPackage>br.com.vortice.gestao.instituicaoBE.gen.invoker</invokerPackage>
+								<modelPackage>br.com.vortice.gestao.instituicaoBE.gen.representation</modelPackage>
+								<apiPackage>br.com.vortice.gestao.instituicaoBE.gen.resource</apiPackage>
 							</configOptions>
 						</configuration>
 					</execution>
