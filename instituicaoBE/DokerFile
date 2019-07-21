@@ -1,0 +1,16 @@
+FROM openjdk:8-jdk-alpine
+MAINTAINER instituicaoBE
+
+RUN mkdir /opt/app
+
+VOLUME /tmp
+
+EXPOSE 8080
+
+ARG JAR_FILE
+
+COPY ${JAR_FILE} /opt/app/instituicaoBE.jar
+
+WORKDIR /opt/app
+
+ENTRYPOINT ["sh", "-c",  "java -jar instituicaoBE.jar"]

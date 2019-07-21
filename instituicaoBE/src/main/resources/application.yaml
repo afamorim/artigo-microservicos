@@ -1,4 +1,6 @@
 spring:
+  profiles:
+    active: dev
   jpa:
     database: POSTGRESQL
     show-sql: true
@@ -7,10 +9,6 @@ spring:
         temp:
           use_jdbc_metadata_defaults: false
     database-platform: org.hibernate.dialect.PostgreSQL9Dialect
-  datasource:
-    url: jdbc:postgresql://localhost:5432/artigo
-    username: postgres
-    password: sa102101
   jackson:
     deserialization:
       fail-on-unknown-properties: true

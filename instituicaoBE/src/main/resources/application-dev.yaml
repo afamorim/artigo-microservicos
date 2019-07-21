@@ -1,0 +1,5 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/artigo-microservices
+    username: postgres
+    password: postgres

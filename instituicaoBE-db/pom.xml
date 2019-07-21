@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project  xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+	<modelVersion>4.0.0</modelVersion>
+	<artifactId>instituicaoBE-db</artifactId>
+
+	<groupId>br.com.vortice.gestao</groupId>
+	<version>1.0.0</version>
+	<!--parent>
+		<groupId>br.com.misterguest</groupId>
+		<artifactId>misterguest</artifactId>
+		<version>1.0.0</version>
+	</parent-->
+
+
+	<dependencies>
+
+
+	</dependencies>
+
+
+	<build>
+
+		<plugins>
+
+			<plugin>
+				<groupId>org.flywaydb</groupId>
+        <artifactId>flyway-maven-plugin</artifactId>
+        <version>3.0</version>
+				<configuration>
+					<url>jdbc:postgresql://localhost:5432/artigo-microservices</url>
+					<user>postgres</user>
+					<password>postgres</password>
+				</configuration>
+
+				<dependencies>
+					<dependency>
+						<groupId>org.postgresql</groupId>
+						<artifactId>postgresql</artifactId>
+						<version>9.3-1102-jdbc4</version>
+					</dependency>
+				</dependencies>
+			</plugin>
+		</plugins>
+
+	</build>
+
+</project>
